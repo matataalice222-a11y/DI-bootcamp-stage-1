@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wheels Bakery | Fresh Baked Everyday</title>
+  <style>
+    /* --- CSS Variables & Theme --- */
+    :root {
+      --primary: #c86d38;
+      --primary-dark: #a34e1e;
+      --secondary: #f4e9dc;
+      --accent: #2c1a11;
+      --bg-color: #fffaf5;
+      --card-bg: #ffffff;
+      --text: #3a2b25;
+      --text-muted: #725e54;
+      --shadow: 0 10px 20px rgba(44, 26, 17, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* --- Navigation Bar --- */
+    header {
+      background-color: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      text-align: center;
+      padding: 6rem 1.5rem;
+      background: linear-gradient(rgba(44, 26, 17, 0.65), rgba(44, 26, 17, 0.65)),
+                  url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1400&q=80') center/cover;
+      color: #ffffff;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* --- Shared Section Styling --- */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.3rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    /* --- Menu Section --- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-body h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .card-body p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      border-radius: 20px;
+    }
+
+    /* --- About Us Section --- */
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .about-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .about-text p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .about-img {
+      flex: 1;
+      min-width: 300px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    /* --- Order & Contact Section --- */
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .contact-info, .order-form {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-info h3, .order-form h3 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .info-item {
+      margin-bottom: 1.2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .info-item span {
+      font-size: 1.2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #e2d7ce;
+      border-radius: 8px;
+      outline: none;
+      transition: var(--transition);
+      background-color: var(--bg-color);
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* --- Floating Action Button (FAB) --- */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      border: none;
+      font-size: 1.5rem;
+      transition: var(--transition);
+      z-index: 999;
+    }
+
+    .fab:hover {
+      background-color: var(--primary-dark);
+      transform: scale(1.08);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background-color: var(--accent);
+      color: var(--secondary);
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    /* Mobile Responsive Setup */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <a href="#" class="logo">🥨 Wheels <span>Bakery</span></a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#order-contact">Order & Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1>Wheels Bakery</h1>
+    <p>Freshly rolled, baked, and delivered every morning using traditional sourdough & pastry recipes.</p>
+    <a href="#menu" class="btn">Explore Menu</a>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section">
+    <h2 class="section-title">Our Daily Bake Menu</h2>
+    <p class="section-subtitle">Fresh out of the oven every morning</p>
+
+    <div class="menu-grid">
+      <!-- Item 1 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80" alt="Butter Croissant" />
+        <div class="card-body">
+          <h3>Classic Butter Croissant</h3>
+          <p>Flaky, multi-layered golden pastry made with 100% French cultured butter.</p>
+          <div class="card-footer">
+            <span class="price">$3.75</span>
+            <button class="btn btn-sm" onclick="selectItem('Classic Butter Croissant')">Order Item</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=500&q=80" alt="Sourdough Loaf" />
+        <div class="card-body">
+          <h3>Country Sourdough Loaf</h3>
+          <p>36-hour slow fermentation with a crispy dark crust and soft open crumb.</p>
+          <div class="card-footer">
+            <span class="price">$7.50</span>
+            <button class="btn btn-sm" onclick="selectItem('Country Sourdough Loaf')">Order Item</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80" alt="Cinnamon Roll" />
+        <div class="card-body">
+          <h3>Wheel's Cinnamon Roll</h3>
+          <p>Soft rolled brioche filled with aromatic Ceylon cinnamon and cream cheese glaze.</p>
+          <div class="card-footer">
+            <span class="price">$4.50</span>
+            <button class="btn btn-sm" onclick="selectItem('Wheel\'s Cinnamon Roll')">Order Item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="section">
+    <h2 class="section-title">About Us</h2>
+    <p class="section-subtitle">Our Passion for Baking</p>
+
+    <div class="about-container">
+      <div class="about-text">
+        <p>At <strong>Wheels Bakery</strong>, we believe the best days start with warm bread and freshly baked treats. The name "Wheels" represents our rolling pins in motion and our early-morning delivery carts reaching neighborhoods across town.</p>
+        <p>We source 100% organic flour and local dairy to craft artisanal bread, flaky croissants, and custom cakes daily. Whether you stop by our shop or order online for delivery, we aim to bring comfort with every bite.</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=600&q=80" alt="Bakery Counter" class="about-img" />
+    </div>
+  </section>
+
+  <!-- Order & Contact Section -->
+  <section id="order-contact" class="section">
+    <h2 class="section-title">Order & Contact</h2>
+    <p class="section-subtitle">Send us a message or place a bakery order</p>
+
+    <div class="contact-container">
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h3>Visit Wheels Bakery</h3>
+        <div class="info-item">
+          <span>📍</span>
+          <p><strong>Address:</strong> 782 Rolling Pin Avenue, Flour District</p>
+        </div>
+        <div class="info-item">
+          <span>📞</span>
+          <p><strong>Phone:</strong> (555) 890-1234</p>
+        </div>
+        <div class="info-item">
+          <span>✉️</span>
+          <p><strong>Email:</strong> orders@wheelsbakery.com</p>
+        </div>
+        <div class="info-item">
+          <span>⏰</span>
+          <p><strong>Hours:</strong> Mon - Sat: 6:30 AM - 5:00 PM | Sun: 7:00 AM - 2:00 PM</p>
+        </div>
+      </div>
+
+      <!-- Order/Contact Form -->
+      <div class="order-form">
+        <h3>Place an Order</h3>
+        <form id="bakeryForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="itemSelect">Selected Product / Inquiry</label>
+            <select id="itemSelect">
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Classic Butter Croissant">Classic Butter Croissant ($3.75)</option>
+              <option value="Country Sourdough Loaf">Country Sourdough Loaf ($7.50)</option>
+              <option value="Wheel's Cinnamon Roll">Wheel's Cinnamon Roll ($4.50)</option>
+              <option value="Custom Event Cake">Custom Event / Party Order</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Order Details / Message</label>
+            <textarea id="message" rows="4" placeholder="Mention quantity, pick-up time, or custom order notes..." required></textarea>
+          </div>
+          <button type="submit" class="btn" style="width: 100%;">Submit Order Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Action Button -->
+  <button class="fab" id="fabBtn" title="Quick Order">🛍️</button>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Wheels Bakery. Baked fresh daily with love.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Quick select product from menu card
+    function selectItem(itemName) {
+      const selectElement = document.getElementById('itemSelect');
+      selectElement.value = itemName;
+
+      // Smooth scroll down to order form
+      document.getElementById('order-contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Form submission handler
+    document.getElementById('bakeryForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const item = document.getElementById('itemSelect').value;
+
+      alert(`Thank you, ${name}! Your request for "${item}" has been sent to Wheels Bakery.`);
+      this.reset();
+    });
+
+    // Floating Action Button logic
+    const fabBtn = document.getElementById('fabBtn');
+    fabBtn.addEventListener('click', () => {
+      document.getElementById('order-contact').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('name').focus();
+    });
+  </script>
+</body>
+</html>
