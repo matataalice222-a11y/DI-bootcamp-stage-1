@@ -47,7 +47,6 @@ print_days()  # Example usage
 # Exercise 6: Check if Number is Positive, Negative, or Zero
 def check_sign(number):
     if number > 0:
-        print("Positive")
         return "Positive"
     elif number < 0:
         print("Negative")
@@ -61,4 +60,4 @@ def check_sign(number):
 def repeat_word(word, count):
     for _ in range(count):
         print(word)
-        print(word)
+        
