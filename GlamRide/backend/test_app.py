@@ -1,9 +1,30 @@
+import importlib.util
+import sys
 import unittest
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from werkzeug.security import generate_password_hash
 
-from app import Admin, Booking, Service, Stylist, StylistAccount, create_app, db, seed_database
+app_spec = importlib.util.spec_from_file_location(
+    "glamride_legacy_app", Path(__file__).with_name("app.py")
+)
+if app_spec is None or app_spec.loader is None:
+    raise ImportError("Could not load the legacy backend app for its API tests.")
+legacy_app = importlib.util.module_from_spec(app_spec)
+sys.modules[app_spec.name] = legacy_app
+app_spec.loader.exec_module(legacy_app)
+with legacy_app.app.app_context():
+    legacy_app.db.engine.dispose()
+
+Admin = legacy_app.Admin
+Booking = legacy_app.Booking
+Service = legacy_app.Service
+Stylist = legacy_app.Stylist
+StylistAccount = legacy_app.StylistAccount
+create_app = legacy_app.create_app
+db = legacy_app.db
+seed_database = legacy_app.seed_database
 
 
 class GlamRideApiTests(unittest.TestCase):
@@ -25,6 +46,12 @@ class GlamRideApiTests(unittest.TestCase):
                 )
             )
             db.session.commit()
+
+    def tearDown(self):
+        with self.app.app_context():
+            db.session.remove()
+            db.drop_all()
+            db.engine.dispose()
 
     def register_customer(self, email="customer@example.com"):
         response = self.client.post(
